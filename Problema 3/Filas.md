@@ -4,7 +4,13 @@ Implemente un programa $\mathrm{C}$ que reciba los datos de personas en una fila
 
 Se requiere informar al público del tiempo estimado de permanencia de cualquier persona en la cola, si se conocen los tiempos estimados para cada tipo de transacción:
 
-$\begin{array}{lc}\text { Retiro } & 5 \mathrm{~min} \\ \text { Depósito } & 2 \mathrm{~min} \\ \text { Consulta } & 4 \mathrm{~min} \\ \text { Actualización } & 5 \mathrm{~min} \\ \text { Pagos } & 6 \mathrm{~min}\end{array}$
+| Tipo          | Minutos |
+|---------------|---------|
+| Retiro        | 5       |
+| Depósito      | 2       |
+| Consulta      | 4       |
+| Actualización | 5       |
+| Pagos         | 6       |
 
 Escriba un programa $\mathrm{C}$ completo que informe al público general el tiempo estimado de espera para la cola, basándose en el total de personas y los trámites que vienen a ejecutar.
 
