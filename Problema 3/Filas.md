@@ -1,6 +1,4 @@
-
-
-\section{Problema 3: Tiempo de Espera Estimado}
+# Problema 3: Tiempo de Espera Estimado
 
 Implemente un programa $\mathrm{C}$ que reciba los datos de personas en una fila circular implementada en un array para los clientes de un banco: nombre y conjunto de transacciones a realizar.
 
@@ -16,4 +14,4 @@ Suponga:
 
 2. Cada vez que una persona ingresa a la cola la información de tiempo estimado de espera se actualiza.
 
-3. En forma similar, cuando una persona sale de la cola, su tiempo de trámite afecta al valor presupuestado y ese cambio se debe informar al público.
+3. En forma similar, cuando una persona sale de la cola, su tiempo de trámite afecta al valor presupuestado y ese cambio se debe informar al público.********

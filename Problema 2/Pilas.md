@@ -1,4 +1,4 @@
-\section{Problema 2: Pilas para Ordenar Conteiner}
+# Problema 2: Pilas para Ordenar Conteiner
 
 En una bodega de un puerto se guarda la mercadería en contenedores (conteiners).
 

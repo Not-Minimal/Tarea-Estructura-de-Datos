@@ -1,4 +1,4 @@
-\section{Problema 1.- Listas lineales "simples"}
+# Problema 1.- Listas lineales "simples"
 
 Escribir un programa C que implemente un menú al usuario (modo texto) que le permita ejecutar las siguientes operaciones:
 
