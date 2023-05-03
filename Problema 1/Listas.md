@@ -38,3 +38,9 @@ La lista a generar será:
 2. Ordenar la lista por frecuencia decreciente.
 
 3. Buscar la presencia de un carácter específico (a leer) e indicar su frecuencia. 
+
+## Analisis
+
+## Casos de Prueba
+
+## Conclusion
