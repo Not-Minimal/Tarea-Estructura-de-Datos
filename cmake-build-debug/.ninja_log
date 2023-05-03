@@ -1,0 +1,17 @@
+# ninja log v5
+0	39	1683160057917423132	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_1/Listas.c.o	ef16b991ce515a6d
+1	40	1683160057917423424	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_2/Pilas.c.o	b166a38a390d8fb2
+1	61	1683160057939344434	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+61	119	1683160057997997345	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+1	209	1683160383938641478	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+209	271	1683160384003279070	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+0	43	1683160397306454155	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+43	96	1683160397360089451	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+1	204	1683160408144556635	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+204	264	1683160408206892770	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+1	85	1683162064098448937	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+86	158	1683162064172464984	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+1	153	1683162181230061019	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+153	224	1683162181301733044	Tarea_Estructura_de_Datos	a20e9729c41eaff6
+0	251	1683162244470522020	CMakeFiles/Tarea_Estructura_de_Datos.dir/Problema_3/FilaCircular.c.o	21ef3ff4e6f2b3b5
+251	318	1683162244540184348	Tarea_Estructura_de_Datos	a20e9729c41eaff6

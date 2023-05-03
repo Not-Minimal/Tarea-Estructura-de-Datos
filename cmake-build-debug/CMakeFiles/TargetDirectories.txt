@@ -1,0 +1,3 @@
+/Users/notminimal/CLionProjects/Tarea-Estructura-de-Datos/cmake-build-debug/CMakeFiles/Tarea_Estructura_de_Datos.dir
+/Users/notminimal/CLionProjects/Tarea-Estructura-de-Datos/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/notminimal/CLionProjects/Tarea-Estructura-de-Datos/cmake-build-debug/CMakeFiles/rebuild_cache.dir
