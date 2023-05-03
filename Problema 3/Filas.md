@@ -20,4 +20,4 @@ Suponga:
 
 2. Cada vez que una persona ingresa a la cola la información de tiempo estimado de espera se actualiza.
 
-3. En forma similar, cuando una persona sale de la cola, su tiempo de trámite afecta al valor presupuestado y ese cambio se debe informar al público.********
+3. En forma similar, cuando una persona sale de la cola, su tiempo de trámite afecta al valor presupuestado y ese cambio se debe informar al público.
