@@ -104,8 +104,5 @@ int main(){
 
     imprimirFilaCircular(&link);
 
-
-
-
     return 0;
 }
