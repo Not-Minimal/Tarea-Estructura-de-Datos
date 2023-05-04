@@ -1,13 +1,15 @@
 //Primero Creare una Fila Circular Comun y corriente
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX 5 //Tamaño maximo de la fila
 
 //Estructura de la fila
 typedef struct{
     int front, rear;
-    int arreglo[MAX];
+    char* nombre[MAX];
+    char* transaccion[MAX];
 }FilaCircular;
 
 //Iniciar la Fila por Defecto
@@ -26,12 +28,15 @@ int filaLlena(FilaCircular *link){
 }
 
 //Agregar un nuevo elemento a la fila›
-void agregarElemento(FilaCircular *link, int valor){
+void agregarElemento(FilaCircular *link, char *nombre, int transaccion){
+
     if (filaLlena(link)){
         return;
     } else {
         link->rear = (link->rear + 1) % MAX;
-        link->arreglo[link->rear] = valor;
+        link->nombre[link->rear] = (char*) malloc(strlen(nombre) + 1);
+        strcpy(link->nombre[link->rear], nombre);
+        link->transaccion[link->rear] = transaccion;
         if (link->front == -1) {
             link->front = link->rear;
         }
@@ -55,7 +60,7 @@ int eliminarElemento(FilaCircular *link ){
 
 void imprimirFilaCircular(FilaCircular *link){
     if (filaVacia(link)){
-        printf("La fila Circular se encuenta vacia. \n");
+        printf("La fila Circular se encuentra vacia. \n");
         return;
     }
     printf("\nElementos de la fila Circular: \n");
@@ -74,10 +79,14 @@ int main(){
 
     FilaCircular link;
     inicializarFilaCircular(&link);
-    agregarElemento(&link, 1);
-    agregarElemento(&link, 2);
-    agregarElemento(&link, 3);
-    agregarElemento(&link, 4);
+    //agregarElemento(&link, 1);
+    //agregarElemento(&link, 2);
+    //agregarElemento(&link, 3);
+    //agregarElemento(&link, 4);
+
+    if (eliminarElemento(&link) == 0){
+        printf("La Fila esta vacia");
+    }
 
     printf("%d ", eliminarElemento(&link));
     printf("%d ", eliminarElemento(&link));
