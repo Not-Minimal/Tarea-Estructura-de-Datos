@@ -12,6 +12,14 @@ typedef struct{
     int transaccion[MAX];
 }FilaCircular;
 
+//Prototipo de Funciones
+void inicializarFilaCircular(FilaCircular *link);
+int filaVacia(FilaCircular *link);
+int filaLlena(FilaCircular *link);
+void agregarCliente(FilaCircular *link, char *nombre, int transaccion);
+int eliminarCliente(FilaCircular *link);
+void imprimirFilaCircular(FilaCircular *link);
+
 //Iniciar la Fila por Defecto
 void inicializarFilaCircular(FilaCircular *link){
     link->front = link->rear = -1;
