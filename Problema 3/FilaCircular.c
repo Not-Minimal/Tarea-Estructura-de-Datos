@@ -9,7 +9,7 @@
 typedef struct{
     int front, rear;
     char* nombre[MAX];
-    char* transaccion[MAX];
+    int transaccion[MAX];
 }FilaCircular;
 
 //Iniciar la Fila por Defecto
@@ -27,8 +27,8 @@ int filaLlena(FilaCircular *link){
     return ((link->rear+1) % MAX == link->front);
 }
 
-//Agregar un nuevo elemento a la fila›
-void agregarElemento(FilaCircular *link, char *nombre, int transaccion){
+//Agregar un nuevo Clientes a la fila›
+void agregarCliente(FilaCircular *link, char *nombre, int transaccion){
 
     if (filaLlena(link)){
         return;
@@ -43,35 +43,39 @@ void agregarElemento(FilaCircular *link, char *nombre, int transaccion){
     }
 }
 
-//Eliminar Elemento de la Lista
-int eliminarElemento(FilaCircular *link ){
-    int valor;
+//Eliminar Clientes de la Lista
+int eliminarCliente(FilaCircular *link){
+
     if (filaVacia(link)){
         return 0;
     } else{
-        valor = link->arreglo[link->front];
+        char* nombre = link->nombre[link->front];
+        int transaccion = link->transaccion[link->front];
+        printf("Atendiendo a %s en transaccion N°%d. \n", nombre, transaccion);
+        free(nombre);
         if (link->front == link->rear){
             link->front = link->rear = -1;
         } else{
             link->front = (link->front + 1) % MAX;
-        } return valor;
+        }
+        //return;
     }
 }
 
 void imprimirFilaCircular(FilaCircular *link){
+
     if (filaVacia(link)){
         printf("La fila Circular se encuentra vacia. \n");
         return;
     }
-    printf("\nElementos de la fila Circular: \n");
+    printf("\nClientes de la fila Circular: \n");
     int i = link->front;
 
     while (i != link->rear){
-        printf("%d ", link->arreglo[i]);
+        printf("Cliente N°%d: %s, tipo de transaccion: %d \n",(i+1), link->nombre[i], link->transaccion[i]);
         i = (i + 1) % MAX;
     }
-    printf("%d \n", link->arreglo[link->rear]);
-
+    printf("Ultimo cliente %s, tipo de transaccion: %d \n", link->nombre[link->rear], link->transaccion[link->rear]);
 }
 
 
@@ -79,22 +83,20 @@ int main(){
 
     FilaCircular link;
     inicializarFilaCircular(&link);
-    //agregarElemento(&link, 1);
-    //agregarElemento(&link, 2);
-    //agregarElemento(&link, 3);
-    //agregarElemento(&link, 4);
+    agregarCliente(&link, "Diego Aguilera", 1);
+    agregarCliente(&link, "Matias Arenas", 2);
+    agregarCliente(&link, "Saul Munoz", 3);
+    agregarCliente(&link, "Deadpool", 4);
 
-    if (eliminarElemento(&link) == 0){
+    /*
+     if (eliminarCliente(&link) == 0){
         printf("La Fila esta vacia");
-    }
-
-    printf("%d ", eliminarElemento(&link));
-    printf("%d ", eliminarElemento(&link));
-
-    agregarElemento(&link, 5);
-    agregarElemento(&link, 6);
+        }
+     */
 
     imprimirFilaCircular(&link);
+
+
 
 
     return 0;
