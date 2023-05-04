@@ -83,9 +83,8 @@ typedef struct [
 int id;
 char[25] nombre_empresa;
 ] estructura_bodega;
-```
-
 estructura_bodega bodega[n][m];
+```
 
 A continuación, se desplegará un menú con las siguientes opciones:
 
