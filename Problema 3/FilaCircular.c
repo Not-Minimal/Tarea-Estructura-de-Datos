@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 5 // Tamaño maximo de la fila
+#define MAX 10 // Tamaño maximo de la fila
 int tiempoEspera = 0, retiro = 5, Deposito = 2, Consulta = 4, Actualizacion = 5, Pagos = 6;
 
 // Estructura de la fila
@@ -76,7 +76,7 @@ int eliminarCliente(FilaCircular *link)
     {
         char *nombre = link->nombre[link->front];
         int transaccion = link->transaccion[link->front];
-        printf("Eliminado a %s en transaccion N°%d. \n", nombre, transaccion);
+        printf("Se ha eliminado a %s y el tiempo de espera ha bajado en %d minutos. \n", nombre, transaccion);
         free(nombre);
         if (link->front == link->rear)
         {
@@ -119,12 +119,10 @@ void imprimirFilaCircular(FilaCircular *link)
 
 void menu()
 {
-
     FilaCircular link;
     inicializarFilaCircular(&link);
     int i, cantidadClientes, transaccion, opcion;
-    char cliente[10];
-
+    char cliente[15];
     do
     {
         printf("1. Agregar Cliente\n");
@@ -133,6 +131,7 @@ void menu()
         printf("4. Salir\n");
         printf("Ingrese una opcion: ");
         scanf("%d", &opcion);
+        fflush(stdin);
         switch (opcion)
         {
             case 1:
@@ -144,18 +143,58 @@ void menu()
                 {
                     printf("Ingrese el nombre del cliente: \n");
                     scanf("%s", cliente);
-                    printf("Ingrese el tipo de operacion del cliente: \n");
-                    scanf("%d", &transaccion);
-                    agregarCliente(&link, cliente, transaccion);
+                    int subOpcion;
+                    printf("Tipos de Transaccion:\n");
+                    printf("1. Retiro, tiempo aproximado: 5 Minutos\n");
+                    printf("2. Deposito, tiempo aproximado: 2 Minutos\n");
+                    printf("3. Consulta, tiempo aproximado: 4 Minutos\n");
+                    printf("4. Actualizacion, tiempo aproximado: 5 Minutos\n");
+                    printf("5. Pago, tiempo aproximado: 6 Minutos\n");
+                    do
+                    {
+                        printf("Ingrese el tipo de operacion: \n");
+                        scanf("%d", &subOpcion);
+                    } while (subOpcion < 1 || subOpcion > 5);
+
+                    switch (subOpcion)
+                    {
+                        case 1:
+                        {
+                            agregarCliente(&link, cliente, 5);
+                        }
+                            break;
+                        case 2:
+                        {
+                            agregarCliente(&link, cliente, 2);
+                        }
+                            break;
+                        case 3:
+                        {
+                            agregarCliente(&link, cliente, 4);
+                        }
+                            break;
+                        case 4:
+                        {
+                            agregarCliente(&link, cliente, 5);
+                        }
+                            break;
+                        case 5:
+                        {
+                            agregarCliente(&link, cliente, 6);
+                        }
+                            break;
+                    }
                 }
             }
-            break;
+                break;
             case 2:
             {
-                if (filaVacia(&link)){
+                if (filaVacia(&link))
+                {
                     printf("Fila Vacia\n");
                 }
-                else{
+                else
+                {
                     printf("Cuantos clientes desea eliminar: ");
                     scanf("%d", &cantidadClientes);
                     for (i = 0; i < cantidadClientes; ++i)
@@ -169,29 +208,19 @@ void menu()
             {
                 imprimirFilaCircular(&link);
             }
-            break;
-            case 4:{
+                break;
+            case 4:
+            {
                 printf("Gracias, saliendo... \n");
-
+                exit(0);
             }
         }
-        printf("Tiempo de espera Final: %d\n", link.tiempoEspera);
-
+        printf("Tiempo de espera actual: %d\n", link.tiempoEspera);
     } while (opcion != 4);
-
-    /*
-     if (eliminarCliente(&link) == 0){
-        printf("La Fila esta vacia");
-        }
-     */
-
-    printf("Tiempo de espera Final: %d", link.tiempoEspera);
-
 }
 
 int main()
 {
-
     menu();
     return 0;
 }
