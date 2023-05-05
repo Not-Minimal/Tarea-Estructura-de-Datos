@@ -4,7 +4,7 @@
 #include <string.h>
 
 #define MAX 10 // Tamaño maximo de la fila
-int tiempoEspera = 0, retiro = 5, Deposito = 2, Consulta = 4, Actualizacion = 5, Pagos = 6;
+int tiempoEspera = 0;
 
 // Estructura de la fila
 typedef struct
@@ -203,7 +203,7 @@ void menu()
                     }
                 }
             }
-            break;
+                break;
             case 3:
             {
                 imprimirFilaCircular(&link);
