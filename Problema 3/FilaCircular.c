@@ -43,21 +43,16 @@ void agregarCliente(FilaCircular *link, char *nombre, int transaccion){
 
     if (filaLlena(link)){
         return;
-    } else if (filaVacia(link)){
-        link->tiempoEspera = 0;
-    }
-    else {
+    } else {
         link->rear = (link->rear + 1) % MAX;
         link->nombre[link->rear] = (char*) malloc(strlen(nombre) + 1);
         strcpy(link->nombre[link->rear], nombre);
         link->transaccion[link->rear] = transaccion;
+        link->tiempoEspera = link->tiempoEspera + transaccion;
         if (link->front == -1) {
             link->front = link->rear;
         }
-        link->tiempoEspera = link->tiempoEspera + transaccion;
     }
-
-
 }
 
 //Eliminar Clientes de la Lista
@@ -102,14 +97,25 @@ void imprimirFilaCircular(FilaCircular *link){
 
 int main(){
 
+    int cantidadClientes;
     FilaCircular link;
     inicializarFilaCircular(&link);
-    //printf("Tiempo de espera inicio: %d", tiempoEspera);
-    //agregarCliente(&link, "Diego Aguilera", 5);
-    //agregarCliente(&link, "Matias Arenas", 2);
-    //agregarCliente(&link, "Saul Munoz", 3);
-    //agregarCliente(&link, "Deadpool", 4);
-    //eliminarCliente(&link);
+    printf("Tiempo de espera inicio: %d\n", tiempoEspera);
+
+    printf("Cuantos clientes desea agregar: ");
+    scanf("%d", &cantidadClientes);
+
+    int i, transaccion;
+    char cliente[10];
+    for (i = 0; i < cantidadClientes; ++i) {
+        printf("Ingrese el nombre del cliente: \n");
+        scanf("%s", cliente);
+        printf("Ingrese el tipo de operacion del cliente: \n");
+        scanf("%d", &transaccion);
+        agregarCliente(&link, cliente, transaccion);
+    }
+
+    link.tiempoEspera;
 
     /*
      if (eliminarCliente(&link) == 0){
