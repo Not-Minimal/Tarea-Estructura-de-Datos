@@ -43,16 +43,21 @@ void agregarCliente(FilaCircular *link, char *nombre, int transaccion){
 
     if (filaLlena(link)){
         return;
-    } else {
+    } else if (filaVacia(link)){
+        link->tiempoEspera = 0;
+    }
+    else {
         link->rear = (link->rear + 1) % MAX;
         link->nombre[link->rear] = (char*) malloc(strlen(nombre) + 1);
         strcpy(link->nombre[link->rear], nombre);
         link->transaccion[link->rear] = transaccion;
-        link->tiempoEspera = link->tiempoEspera + transaccion;
         if (link->front == -1) {
             link->front = link->rear;
         }
+        link->tiempoEspera = link->tiempoEspera + transaccion;
     }
+
+
 }
 
 //Eliminar Clientes de la Lista
@@ -99,15 +104,12 @@ int main(){
 
     FilaCircular link;
     inicializarFilaCircular(&link);
-    printf("Tiempo de espera inicio: %d", tiempoEspera);
+    //printf("Tiempo de espera inicio: %d", tiempoEspera);
     //agregarCliente(&link, "Diego Aguilera", 5);
     //agregarCliente(&link, "Matias Arenas", 2);
     //agregarCliente(&link, "Saul Munoz", 3);
     //agregarCliente(&link, "Deadpool", 4);
     //eliminarCliente(&link);
-
-
-    link.tiempoEspera;
 
     /*
      if (eliminarCliente(&link) == 0){
