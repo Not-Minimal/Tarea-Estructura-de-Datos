@@ -4,12 +4,14 @@
 #include <string.h>
 
 #define MAX 5 //Tamaño maximo de la fila
+int tiempoEspera = 0;
 
 //Estructura de la fila
 typedef struct{
     int front, rear;
     char* nombre[MAX];
     int transaccion[MAX];
+    int tiempoEspera;
 }FilaCircular;
 
 //Prototipo de Funciones
@@ -19,6 +21,7 @@ int filaLlena(FilaCircular *link);
 void agregarCliente(FilaCircular *link, char *nombre, int transaccion);
 int eliminarCliente(FilaCircular *link);
 void imprimirFilaCircular(FilaCircular *link);
+int calcularEspera(FilaCircular *link);
 
 //Iniciar la Fila por Defecto
 void inicializarFilaCircular(FilaCircular *link){
@@ -45,6 +48,7 @@ void agregarCliente(FilaCircular *link, char *nombre, int transaccion){
         link->nombre[link->rear] = (char*) malloc(strlen(nombre) + 1);
         strcpy(link->nombre[link->rear], nombre);
         link->transaccion[link->rear] = transaccion;
+        link->tiempoEspera = link->tiempoEspera + transaccion;
         if (link->front == -1) {
             link->front = link->rear;
         }
@@ -66,6 +70,11 @@ int eliminarCliente(FilaCircular *link){
         } else{
             link->front = (link->front + 1) % MAX;
         }
+        if (filaVacia(link)){
+            link->tiempoEspera = 0;
+        } else{
+            link->tiempoEspera = link->tiempoEspera - transaccion;
+        }
         //return;
     }
 }
@@ -73,7 +82,7 @@ int eliminarCliente(FilaCircular *link){
 void imprimirFilaCircular(FilaCircular *link){
 
     if (filaVacia(link)){
-        printf("La fila Circular se encuentra vacia. \n");
+        printf("\nLa fila Circular se encuentra vacia.\n");
         return;
     }
     printf("\nClientes de la fila Circular: \n");
@@ -86,15 +95,18 @@ void imprimirFilaCircular(FilaCircular *link){
     printf("Ultimo cliente %s, tipo de transaccion: %d \n", link->nombre[link->rear], link->transaccion[link->rear]);
 }
 
-
 int main(){
 
     FilaCircular link;
     inicializarFilaCircular(&link);
-    agregarCliente(&link, "Diego Aguilera", 1);
-    agregarCliente(&link, "Matias Arenas", 2);
-    agregarCliente(&link, "Saul Munoz", 3);
-    agregarCliente(&link, "Deadpool", 4);
+    printf("Tiempo de espera inicio: %d", tiempoEspera);
+    //agregarCliente(&link, "Diego Aguilera", 5);
+    //agregarCliente(&link, "Matias Arenas", 2);
+    //agregarCliente(&link, "Saul Munoz", 3);
+    //agregarCliente(&link, "Deadpool", 4);
+    //eliminarCliente(&link);
+
+    link.tiempoEspera;
 
     /*
      if (eliminarCliente(&link) == 0){
@@ -103,6 +115,7 @@ int main(){
      */
 
     imprimirFilaCircular(&link);
+    printf("Tiempo de espera Final: %d", link.tiempoEspera);
 
     return 0;
 }
