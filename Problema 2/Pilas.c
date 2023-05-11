@@ -11,6 +11,7 @@ void leer_n_m(int *m, int *n);
 void inicializar_ids(estructura_pilas pilas[11][6], int n, int m);
 void push(estructura_pilas pilas[11][6], int n, int m);
 void peek(estructura_pilas pilas[11][6], int n, int m);
+void imprimir_container(estructura_pilas pilas[11][6], int n, int m);
 void leer_n_m(int *m, int *n)
 {
 
@@ -154,8 +155,8 @@ void push(estructura_pilas pilas[11][6], int n, int m)
 
 void peek(estructura_pilas pilas[11][6], int n, int m)
 {
-    int opcion=0;
-    int bandera_pila_vacia=0;
+    int opcion = 0;
+    int bandera_pila_vacia = 0;
     int i;
     printf("Ingrese a que pila quiere consultar su peek\n");
     printf("Existen %d pilas\n", m);
@@ -174,22 +175,58 @@ void peek(estructura_pilas pilas[11][6], int n, int m)
     } while (opcion <= 0 || opcion > m);
 
     for (i = n - 1; i >= 0; i--)
+    {
+        if (pilas[i][opcion - 1].id != -1)
         {
-            if (pilas[i][opcion - 1].id != -1)
+            bandera_pila_vacia = 1;
+            break;
+        }
+    }
+    if (bandera_pila_vacia == 0)
+    {
+        printf("Su pila esta vacia\n");
+    }
+    else
+    {
+        printf("Los datos de su pila son\n");
+        printf("Nombre empresa: %s\n", pilas[i][opcion - 1].nombre_empresa);
+        printf("ID: %d\n", pilas[i][opcion - 1].id);
+    }
+}
+
+void imprimir_container(estructura_pilas pilas[11][6], int n, int m)
+{
+
+    int i, j;
+
+    char cuadrado = 254;
+    char linea_parada = 179;
+    char guion_alto = 238;
+
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            if (j == 0)
             {
-                bandera_pila_vacia=1;
-                break;
+                printf("%c", linea_parada);
+            }
+            if (pilas[i][j].id != -1)
+            {
+                printf("%c", cuadrado);
+            }
+            else
+            {
+                printf(" ");
             }
         }
-        if (bandera_pila_vacia==0)
-        {
-            printf("Su pila esta vacia\n");
-        }else{
-            printf("Los datos de su pila son\n");
-            printf("Nombre empresa: %s\n",pilas[i][opcion-1].nombre_empresa);
-            printf("ID: %d\n",pilas[i][opcion-1].id);
-        }
-        
+        printf("\n");
+    }
+    for (i = 0; i < (m*2)-1; i++)
+    {
+        printf("%c", guion_alto);
+    }
+    printf("\n");
 }
 int main()
 {
@@ -204,16 +241,51 @@ int main()
 
     system("cls");
 
-    push(pilas, n, m);
+    /*push(pilas, n, m);
     peek(pilas , n , m);
-    for (i = 0; i < n; i++)
+    imprimir_container(pilas,n,m);
+ */
+    int opcion_menu = 0;
+    do
     {
-        for (j = 0; j < m; j++)
+        printf("Ingrese 1 para hacer push\n");
+        printf("Ingrese 2 para hacer pop\n");
+        printf("Ingrese 3 para hacer peek\n");
+        printf("Ingrese 4 para mostar los id y nombre de una pila en especifica\n");
+        printf("Ingrese 5 para salir\n");
+        scanf("%d", &opcion_menu);
+        fflush(stdin);
+        system("cls");
+        switch (opcion_menu)
         {
-            printf("%d ", pilas[i][j].id);
+        case 1:
+            push(pilas, n, m);
+            system("cls");
+            break;
+
+        case 2:
+            printf("ERROR 404\n");
+            break;
+
+        case 3:
+            peek(pilas, n, m);
+            break;
+
+        case 4:
+            printf("ERROR 404\n");
+            break;
+
+        case 5:
+            printf("chao\n");
+            break;
+
+        default:
+            printf("Valor invalido reingrese dato\n");
+            break;
         }
-        printf("\n");
-    }
+        
+        imprimir_container(pilas,n,m);
+    } while (opcion_menu != 5);
 
     system("pause");
     return 0;
