@@ -299,7 +299,7 @@ int main()
 	            
 	            lista = ordenar_lista_descendente(lista);
 	            mostrar_lista(lista);
-	            printf("Lista ordenada de manera descendente\n");
+	            printf("\nLista ordenada de manera descendente\n");
 	        	break;
         	}
 	        case 5:
