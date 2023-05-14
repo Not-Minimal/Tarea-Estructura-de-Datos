@@ -1,9 +1,6 @@
-//Diego JK
-#include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-#include<windows.h>
 #define MAX_LENGTH 1000
 
 typedef struct nodo
@@ -13,65 +10,16 @@ typedef struct nodo
     struct nodo *siguiente;
 } Nodo;
 
-Nodo *leer_archivo(char *ruta_archivo);
-void generar_lista(Nodo *lista);
-Nodo *ordenar_lista_ascendente(Nodo *lista);
 
+
+Nodo *leer_archivo(char *ruta_archivo);
+void mostrar_lista(Nodo *lista);
+Nodo *ordenar_lista_ascendente(Nodo *lista);
 Nodo *ordenar_lista_descendente(Nodo *lista);
 void buscar_caracter(Nodo *lista, char caracter_buscado);
+Nodo *borrar_lista(Nodo *lista);
 
-Nodo *ordenar_lista_descendente(Nodo *lista)
-{
-    Nodo *temp1 = lista;
-    while (temp1 != NULL)
-    {
-        Nodo *temp2 = lista;
-        while (temp2->siguiente != NULL)
-        {
-            if (temp2->repeticiones < temp2->siguiente->repeticiones)
-            {
-                int temp_rep = temp2->repeticiones;
-                char temp_letra = temp2->letra;
-                temp2->repeticiones = temp2->siguiente->repeticiones;
-                temp2->letra = temp2->siguiente->letra;
-                temp2->siguiente->repeticiones = temp_rep;
-                temp2->siguiente->letra = temp_letra;
-            }
-            temp2 = temp2->siguiente;
-        }
-        temp1 = temp1->siguiente;
-    }
-    return lista;
-}
-
-
-Nodo *ordenar_lista_ascendente(Nodo *lista)
-{
-    Nodo *temp1 = lista;
-    while (temp1 != NULL)
-    {
-        Nodo *temp2 = lista;
-        while (temp2->siguiente->siguiente != NULL)
-        {
-            if (temp2->repeticiones > temp2->siguiente->repeticiones)
-            {
-                int temp_rep = temp2->repeticiones;
-                char temp_letra = temp2->letra;
-                temp2->repeticiones = temp2->siguiente->repeticiones;
-                temp2->letra = temp2->siguiente->letra;
-                temp2->siguiente->repeticiones = temp_rep;
-                temp2->siguiente->letra = temp_letra;
-                printf("[%c][%d]", temp2->letra, temp2->repeticiones);
-                system("pause");
-            }
-            temp2 = temp2->siguiente;
-        }
-        temp1 = temp1->siguiente;
-    }
-    return lista;
-}
-
-
+/*
 Nodo *leer_archivo(char *ruta_archivo)
 {
 	int i = 0, j = 0, n, cont = 1;
@@ -117,11 +65,12 @@ Nodo *leer_archivo(char *ruta_archivo)
 	}
 	
 	Nodo *nuevo = NULL, *lista = NULL, *aux = NULL;
+	
 	int repetido;
 	char letra;
-	
 	i = 0;
-	while(i != cont )
+	
+	for(i = 0; i < cont; i++)
 	{	
 		if (lista == NULL)
 		{
@@ -143,15 +92,65 @@ Nodo *leer_archivo(char *ruta_archivo)
 			aux->siguiente = nuevo;
 			aux = aux->siguiente;
 		}
-		i++;
 	}
 	
     return lista;
 }
+*/
 
+Nodo *leer_archivo(char *ruta_archivo)
+{
+    FILE *archivo = fopen(ruta_archivo, "r");
+    if (archivo == NULL)
+    {
+        printf("Error al abrir el archivo\n");
+        exit(1);
+    }
 
+    char caracter;
+    Nodo *inicio = NULL;
+    Nodo *nodo_actual = NULL;
+    
+    while ((caracter = fgetc(archivo)) != EOF)//lee cada caracter del archivo
+    {
+        if (inicio == NULL)//inicia la lista
+        {
+            inicio = (Nodo *)malloc(sizeof(Nodo));
+            inicio->letra = tolower(caracter);
+            inicio->repeticiones = 1;
+            inicio->siguiente = NULL;
+            nodo_actual = inicio;
+        }
+        else//sigue dandole valores a la lista
+        {
+            char letra = tolower(caracter);//copia letra en minuscula
+            Nodo *nodo_actual_letra = inicio;//comienza en el primer nodo
+            
+            while (nodo_actual_letra != NULL)//recorre la lista dando nuevos nodos
+            {
+                if (nodo_actual_letra->letra == letra)
+                {
+                    nodo_actual_letra->repeticiones++;//aumenta la repeticion
+                    break;
+                }
+                if (nodo_actual_letra->siguiente == NULL)//si el que sigue es nulo se crea otro nodo
+                {
+                    Nodo *nuevo_nodo = (Nodo *)malloc(sizeof(Nodo));
+                    nuevo_nodo->letra = letra;
+                    nuevo_nodo->repeticiones = 1;
+                    nuevo_nodo->siguiente = NULL;
+                    nodo_actual_letra->siguiente = nuevo_nodo;
+                    break;
+                }
+                nodo_actual_letra = nodo_actual_letra->siguiente;
+            }
+        }
+    }
+    fclose(archivo);
+    return inicio;
+}
 
-void generar_lista(Nodo *lista)
+void mostrar_lista(Nodo *lista)
 {
 	while(lista->siguiente != NULL)
 	{
@@ -160,7 +159,76 @@ void generar_lista(Nodo *lista)
 	}
 }
 
+Nodo *ordenar_lista_ascendente(Nodo *lista)
+{
+    Nodo *temp1 = lista;
+    while (temp1 != NULL)
+    {
+        Nodo *temp2 = lista;
+        while (temp2->siguiente->siguiente != NULL)
+        {
+            if (temp2->repeticiones > temp2->siguiente->repeticiones)
+            {
+                int temp_rep = temp2->repeticiones;
+                char temp_letra = temp2->letra;
+                temp2->repeticiones = temp2->siguiente->repeticiones;
+                temp2->letra = temp2->siguiente->letra;
+                temp2->siguiente->repeticiones = temp_rep;
+                temp2->siguiente->letra = temp_letra;
+            }
+            temp2 = temp2->siguiente;
+        }
+        temp1 = temp1->siguiente;
+    }
+    return lista;
+}
 
+Nodo *ordenar_lista_descendente(Nodo *lista)
+{
+    Nodo *temp1 = lista;
+    while (temp1 != NULL)
+    {
+        Nodo *temp2 = lista;
+        while (temp2->siguiente != NULL)
+        {
+            if (temp2->repeticiones < temp2->siguiente->repeticiones)
+            {
+                int temp_rep = temp2->repeticiones;
+                char temp_letra = temp2->letra;
+                temp2->repeticiones = temp2->siguiente->repeticiones;
+                temp2->letra = temp2->siguiente->letra;
+                temp2->siguiente->repeticiones = temp_rep;
+                temp2->siguiente->letra = temp_letra;
+            }
+            temp2 = temp2->siguiente;
+        }
+        temp1 = temp1->siguiente;
+    }
+    return lista;
+}
+
+
+void buscar_caracter(Nodo *lista, char caracter_buscado)
+{
+    while (lista != NULL)
+    {
+        if (lista->letra == caracter_buscado)
+        {
+        	printf("\nCaracter encontrado:\n");
+            printf("Caracter: [%c], Frecuencia: %d\n", caracter_buscado, lista->repeticiones);
+            system("pause");
+            break;
+        }
+        lista = lista->siguiente;
+    }
+    
+    if (lista == NULL)
+    {
+    	printf("\nCaracter NO encontrado \n");
+    	system("pause");
+	}
+    
+}
 
 
 int main()
@@ -177,24 +245,22 @@ int main()
         printf("4. Ordenar lista descendente\n");
         printf("5. Buscar caracter\n");
         printf("6. Salir\n");
-        
         printf("\nSeleccione una opcion: ");
         scanf("%d", &opcion);
+        fflush(stdin);
         system("cls");
 
         switch (opcion)
         {
     		case 1:
     		{
-			
-        
             	printf("Ingrese la ruta del archivo: ");
             	scanf("%s", ruta_archivo);
-	            printf("\nRuta leida con exito\n\n");
-	            system("pause");
+            	fflush(stdin);
+	            printf("\nRuta leida con exito\n");
 	            lista = leer_archivo(ruta_archivo);
-	            fflush(stdin);
-            break;
+	            mostrar_lista(lista);
+            	break;
     		}
         	case 2:
         	{
@@ -204,9 +270,9 @@ int main()
 	                printf("Primero debe leer un archivo de texto\n");
 	                break;
 	            }
-	            generar_lista(lista);
+	            mostrar_lista(lista);
 	            printf("\nLista generada con exito\n");
-            break;
+            	break;
         	}
 	        case 3:
 	        {
@@ -220,7 +286,7 @@ int main()
 	            lista = ordenar_lista_ascendente(lista);
 	            printf("\nLista ordenada de manera ascendente\n");
 	            system("pause");
-	        break;
+	        	break;
         	}
 	        case 4:
 	        {
@@ -230,10 +296,9 @@ int main()
 	                break;
 	            }
 	            
-	            ordenar_lista_descendente(lista);
+	            lista = ordenar_lista_descendente(lista);
 	            printf("Lista ordenada de manera descendente\n");
-	            system("pause");
-	        break;
+	        	break;
         	}
 	        case 5:
 	        {
@@ -242,12 +307,13 @@ int main()
 	                printf("Primero debe leer un archivo de texto\n");
 	                break;
 	            }
-	            /*
+	            
 	            char caracter_buscado;
 	            printf("Ingrese el caracter a buscar: ");
 	            scanf(" %c", &caracter_buscado);
-	            buscar_caracter(lista, tolower(caracter_buscado)); */
-	        break;
+	            fflush(stdin);
+	            buscar_caracter(lista, tolower(caracter_buscado)); 
+	        	break;
         	}
 	        case 6:
 	        {
@@ -260,7 +326,7 @@ int main()
 	            printf("\nOpcion invalida\n");
 	            fflush(stdin);
 	            system("pause");
-	        break;
+	        	break;
 	    	}
         }
     }while (1);
