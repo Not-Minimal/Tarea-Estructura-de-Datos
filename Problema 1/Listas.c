@@ -1,3 +1,5 @@
+//Diego JK
+#include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
@@ -259,7 +261,6 @@ int main()
             	fflush(stdin);
 	            printf("\nRuta leida con exito\n");
 	            lista = leer_archivo(ruta_archivo);
-	            mostrar_lista(lista);
             	break;
     		}
         	case 2:
@@ -284,8 +285,8 @@ int main()
 	            }
 	            
 	            lista = ordenar_lista_ascendente(lista);
+	            mostrar_lista(lista);
 	            printf("\nLista ordenada de manera ascendente\n");
-	            system("pause");
 	        	break;
         	}
 	        case 4:
@@ -297,6 +298,7 @@ int main()
 	            }
 	            
 	            lista = ordenar_lista_descendente(lista);
+	            mostrar_lista(lista);
 	            printf("Lista ordenada de manera descendente\n");
 	        	break;
         	}
