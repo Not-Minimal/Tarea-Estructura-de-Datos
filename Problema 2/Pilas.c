@@ -99,7 +99,7 @@ void push(estructura_pilas pilas[12][7], int n, int m)
             system("cls");
             printf("Su pila elegida esta llena \n");
             opcion_salida=2;
-            system("pause");
+            getchar();
             return;
         }
 
