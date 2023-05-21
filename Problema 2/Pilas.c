@@ -98,32 +98,9 @@ void push(estructura_pilas pilas[12][7], int n, int m)
 
             system("cls");
             printf("Su pila elegida esta llena \n");
-            printf("presione 1 para elegir otra pila\n");
-            printf("Presione 2 para volver al Menu\n");
-
-            do
-            {
-                scanf("%d", &opcion_salida);
-                fflush(stdin);
-                if (opcion_salida > 2 || opcion_salida < 1)
-                {
-                    system("cls");
-                    printf("Valor invalido reingrese dato\n");
-                    printf("Su pila elegida esta llena \n");
-                    printf("presione 1 para elegir otra pila\n");
-                    printf("Presione 2 para volver al Menu\n");
-                }
-
-            } while (opcion_salida > 2 || opcion_salida < 1);
-            if (opcion_salida == 2)
-            {
-                system("cls");
-                return;
-            }
-        }
-        else
-        {
-            opcion_salida == 2;
+            opcion_salida=2;
+            system("pause");
+            return;
         }
 
     } while (opcion_salida == 1);
