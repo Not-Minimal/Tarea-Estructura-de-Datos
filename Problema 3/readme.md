@@ -1,4 +1,5 @@
-# Problema 3: Tiempo de Espera Estimado
+# Enunciado
+## Problema 3: Tiempo de Espera Estimado
 
 Implemente un programa $\mathrm{C}$ que reciba los datos de personas en una fila circular implementada en un array para los clientes de un banco: nombre y conjunto de transacciones a realizar.
 
@@ -49,6 +50,18 @@ Int calculoEspera(FilaCircular *link)
 8. Finalmente, en la función "main", se hace uso de las funciones, pasando los parámetros necesarios como nombre y tipo de transacción.
 
 ## Casos de Prueba
+### Agregar cliente y tipo de transacción(Aumenta tiempo de espera):
+<img width="760" alt="Screenshot 2023-05-21 at 15 56 17" src="https://github.com/Not-Minimal/Tarea-Estructura-de-Datos/assets/58341096/9b860dc4-cf3d-42a0-b5ee-45a42abc84a2">
+
+### Eliminar cliente(Descuenta tiempo de espera):
+<img width="760" alt="Screenshot 2023-05-21 at 15 57 02" src="https://github.com/Not-Minimal/Tarea-Estructura-de-Datos/assets/58341096/a6e6533d-3945-439a-8370-cb69df92bd0d">
+
+### Muestra los clientes en la fila, el tiempo de espera y cual es el ultimo cliente en ingresar, ademas del tipo de operacion que hara:
+<img width="760" alt="Screenshot 2023-05-21 at 15 57 20" src="https://github.com/Not-Minimal/Tarea-Estructura-de-Datos/assets/58341096/cf16b2b6-98d3-4a96-8ee9-a60dd0f0ef70">
+
+### Cierra Programa:
+<img width="760" alt="Screenshot 2023-05-21 at 15 57 28" src="https://github.com/Not-Minimal/Tarea-Estructura-de-Datos/assets/58341096/a7415141-a2ff-42f5-8f30-b44f63c28c1e">
+
 
 ## Conclusion
 El siguiente código presenta una implementación de una fila circular en lenguaje C.
