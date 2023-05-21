@@ -1,183 +1,199 @@
+// Diego JK
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <string.h>
+#define MAX_LENGTH 9999 // Tamano maximo del arreglo de caracteres
 
 typedef struct nodo
 {
     char letra;
-    int repeticiones;
-    struct nodo *siguiente;
-} Nodo;
+    int rep;
+    struct nodo *sig;
+} *NODO;
 
-Nodo *leer_archivo(char *ruta_archivo);
-void mostrar_lista(Nodo *lista);
-void buscar_caracter(Nodo *lista, char caracter_buscado);
-void liberar_lista(Nodo *lista);
-
-Nodo *leer_archivo(char *ruta_archivo)
-{
-    FILE *archivo = fopen(ruta_archivo, "r");
-    if (archivo == NULL)
-    {
-        printf("Error al abrir el archivo\n");
-        exit(1);
-    }
-    Nodo *inicio = NULL;
-    Nodo *nodo_actual = NULL;
-    char caracter;
-    while ((caracter = fgetc(archivo)) != EOF)//lee cada caracter del archivo
-    {
-        char letra = tolower(caracter);//copia letra en minuscula
-        Nodo *nodo_actual_letra = inicio;//comienza en el primer nodo
-        while (nodo_actual_letra != NULL)//recorre la lista dando nuevos nodos
-        {
-            if (nodo_actual_letra->letra == letra)
-            {
-                nodo_actual_letra->repeticiones++;//aumenta la repeticion
-                break;
-            }
-            if (nodo_actual_letra->siguiente == NULL)//si el que sigue es nulo se crea otro nodo
-            {
-                Nodo *nuevo_nodo = malloc(sizeof(Nodo));
-                nuevo_nodo->letra = letra;
-                nuevo_nodo->repeticiones = 1;
-                nuevo_nodo->siguiente = NULL;
-                nodo_actual_letra->siguiente = nuevo_nodo;
-                break;
-            }
-            nodo_actual_letra = nodo_actual_letra->siguiente;
-        }
-        if (nodo_actual_letra == NULL)//si la lista esta vacia
-        {
-            Nodo *nuevo_nodo = malloc(sizeof(Nodo));
-            nuevo_nodo->letra = letra;
-            nuevo_nodo->repeticiones = 1;
-            nuevo_nodo->siguiente = NULL;
-            if (inicio == NULL)//inicia la lista
-            {
-                inicio = nuevo_nodo;
-            }
-            else//sigue dandole valores a la lista
-            {
-                nodo_actual->siguiente = nuevo_nodo;
-            }
-            nodo_actual = nuevo_nodo;
-        }
-    }
-    fclose(archivo);
-    return inicio;
-}
-
-void mostrar_lista(Nodo *lista)
-{
-    while (lista != NULL)
-    {
-        printf("Letra: [%c], Repeticiones: %d\n", lista->letra, lista->repeticiones);
-        lista = lista->siguiente;
-    }
-}
-
-void buscar_caracter(Nodo *lista, char caracter_buscado)
-{
-    int encontrado = 0;
-    while (lista != NULL)
-    {
-        if (lista->letra == caracter_buscado)
-        {
-            printf("\nCaracter encontrado:\n");
-            printf("Caracter: [%c], Frecuencia: %d\n", caracter_buscado, lista->repeticiones);
-            encontrado = 1;
-            break;
-        }
-        lista = lista->siguiente;
-    }
-    if (!encontrado)
-    {
-        printf("\nCaracter NO encontrado \n");
-    }
-}
-
-void liberar_lista(Nodo *lista)
-{
-    Nodo *nodo_actual = lista;
-    while (nodo_actual != NULL)
-    {
-        Nodo *siguiente_nodo = nodo_actual->siguiente;
-        free(nodo_actual);
-        nodo_actual = siguiente_nodo;
-    }
-}
+int menu();
+void mostrar_lista(NODO lista);
+NODO crear_lista(NODO lista); // Crea lista
 
 int main()
 {
-    int opcion;
-    Nodo *lista = NULL;
-    char ruta_archivo[100];
+    int op, p, flag = 0;
+    NODO lista = NULL;
+
+    FILE *text;
+    text = fopen("texto.txt", "r");
+    p = fgetc(text);
+    fclose(text);
 
     do
     {
-        printf("\n1. Leer archivo de texto\n");
-        printf("2. Generar una lista dinamica con las letras encontradas\n");
-        printf("3. Buscar caracter\n");
-        printf("4. Salir\n");
-        printf("\nSeleccione una opcion: ");
-        scanf("%d", &opcion);
-        fflush(stdin);
-        system("cls");
+        op = menu();
 
-        switch (opcion)
+        switch (op)
         {
-            case 1:
+        case 1: // CREAR LA LISTA CON LOS DATOS
+            if (p != EOF)
             {
-                printf("Ingrese la ruta del archivo");
-                printf(": ");
-                scanf("%s", ruta_archivo);
-                lista = leer_archivo(ruta_archivo);
-                printf("\nArchivo de texto leido con exito.\n");
-                break;
+                printf("\nTEXTO LEIDO CORRECTAMENTE\n");
+                flag = 1;
+                system("pause");
             }
-            case 2:
+            else
             {
-                if (lista == NULL)
-                {
-                    printf("\nPrimero debe leer un archivo de texto.\n");
-                }
-                else
-                {
-                    printf("\nLista generada:\n");
-                    mostrar_lista(lista);
-                }
-                break;
+                flag = 0;
+                printf("\nNO HAY TEXTO PARA TRABAJAR\n");
+                system("pause");
             }
-            case 3:
+            break;
+        case 2:
+            if (flag == 1)
             {
-                if (lista == NULL)
-                {
-                    printf("\nPrimero debe leer un archivo de texto.\n");
-                }
-                else
-                {
-                    char caracter_buscado;
-                    printf("\nIngrese el caracter a buscar: ");
-                    scanf(" %c", &caracter_buscado);
-                    buscar_caracter(lista, caracter_buscado);
-                }
-                break;
+                lista = crear_lista(lista);
+                mostrar_lista(lista);
             }
-            case 4:
+            else
             {
-                liberar_lista(lista);
-                printf("\nSaliendo del programa...\n");
-                break;
+                printf("\nNO HAY TEXTO PARA TRABAJAR\n");
+                system("pause");
             }
-            default:
+            break;
+        case 3:
+            if (flag == 0)
             {
-                printf("\nOpcion invalida. Intente de nuevo.\n");
-                break;
+            }
+            else
+            {
+                printf("\nNO HAY TEXTO PARA TRABAJAR\n");
+                system("pause");
+            }
+            break;
+        case 4:
+            if (p != EOF)
+            {
+            }
+            else
+            {
+                printf("\nNO HAY TEXTO PARA TRABAJAR\n");
+                system("pause");
+            }
+            break;
+        case 5:
+            if (flag == 0)
+            {
+            }
+            else
+            {
+                printf("\nNO HAY TEXTO PARA TRABAJAR\n");
+                system("pause");
+            }
+            break;
+        default: // SALIR CON -1
+
+            return 0;
+            break;
+        }
+        system("cls");
+    } while (1);
+    return 0;
+}
+
+int menu()
+{
+    int op = 1;
+    do
+    {
+        if (op < 1 || op > 5)
+        {
+            printf("Error, Ingrese opcion valida\n");
+            system("pause");
+            system("cls");
+        }
+        printf("     Seleccione opcion:\n");
+        printf(" <1> Leer caracteres de entrada mediante archivo .txt\n");
+        printf(" <2> Crear lista con la cantidad de apariciones de cada caracter.\n");
+        printf(" <3> Ordenar lista de forma ascendente.\n");
+        printf(" <4> Ordenar lista de forma descendente.\n");
+        printf(" <5> Buscar caracter en especifico y su numero de apariciones.\n");
+        scanf("%d", &op);
+        fflush(stdin);
+        if (op > 0 && op < 6)
+            return op;
+        if (op == -1)
+            return op;
+    } while (1);
+}
+
+NODO crear_lista(NODO lista)
+{
+    NODO nuevo, aux;
+    int i = 0, j = 0, n, cont = 0;
+    char car[MAX_LENGTH], carsinrep[MAX_LENGTH];
+
+    FILE *texto;
+    texto = fopen("texto.txt", "r");
+    if (texto == NULL)
+    {
+        printf("No se pudo abrir el archivo.\n");
+        return 1;
+    }
+    fgets(car, MAX_LENGTH, texto);
+    fclose(texto);
+
+    n = strlen(car);
+    for (i = 0; i < n; i++)
+    {
+        if (strchr(carsinrep, car[i]) == NULL)
+        {
+            carsinrep[j++] = car[i];
+            cont++;
+        }
+    }
+    carsinrep[j] = '\0'; // Deja un enter en la ultima posicion como limite del arreglo
+    int rep[cont + 1];
+    for (i = 0; i < cont + 1; i++)
+        rep[i] = 0; // LLENO DE 0 EL ARREGLO
+    for (i = 0; i < cont + 1; i++)
+    {
+        for (j = 0; j < n + 1; i++)
+        {
+            if (carsinrep[i] == car[j])
+            {
+                rep[i]++;
             }
         }
+    }
 
-    } while (opcion != 4);
+    for (i = 0; carsinrep[i] != '\0'; i++)
+    {
+        nuevo = malloc(sizeof(NODO));
+        nuevo->letra = carsinrep[i];
+        nuevo->rep = rep[i];
+        nuevo->sig = NULL;
+        if (lista == NULL)
+        {
+            lista = nuevo;
+            aux = nuevo;
+        }
+        else
+        {
+            aux->sig = nuevo;
+            aux = nuevo;
+        }
+    }
 
-    return 0;
+    return lista;
+}
+
+void mostrar_lista(NODO lista)
+{
+    int i = 0;
+    printf("\n");
+    printf("    |Datos|posicion|\n");
+    while (lista->sig != NULL)
+    {
+        printf("    [ %c/%d ]   (%d)", lista->letra, lista->rep, i + 1);
+        lista = lista->sig;
+        printf("\n");
+        i++;
+    }
 }

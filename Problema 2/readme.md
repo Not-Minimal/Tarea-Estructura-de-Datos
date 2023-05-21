@@ -60,3 +60,4 @@ Las siguientes son las funciones principales:
 ## Casos de Prueba
 
 ## Conclusion
+Este código es un programa en C que simula un sistema de almacenamiento de contenedores en pilas. Utiliza estructuras para almacenar información del contenedor como el id y el nombre de la empresa. El usuario puede agregar, eliminar y consultar los contenedores en las pilas. El código utiliza varios bucles para iterar a través de las pilas y las estructuras de datos para almacenar información sobre los contenedores. También utiliza algunas técnicas de animación para hacer más atractiva la salida de la información en la consola. En general, es un buen ejemplo de cómo se puede utilizar C para construir programas que realizan operaciones complejas y manejan grandes cantidades de datos de manera eficiente.
